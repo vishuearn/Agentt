@@ -1,23 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <script type="text/javascript">
-        // Redirect immediately when the page loads
-       window.onload = function() {
-           // window.location.href = "https://www.facebook.com/flx/warn/?u=https%3A%2F%2Fzpcn2ktz.online%2F24499yindu2997%3Fmedia_type%3Dimage%26utm_source%3Dig%26utm_medium%3DInstagram_Stories%26utm_id%3D120224605149400179%26utm_content%3D120224605744770179%26utm_term%3D120224605744760179%26utm_campaign%3D120224605149400179%26fbclid%3DPAQ0xDSwLG6Z9leHRuA2FlbQEwAGFkaWQBqx-kXo8J0wGnVsjBSEOlW4JLySMgYeFR30XRZDj26FQIbXeNBsxzMyjj3tgbE0d3fEm6_Yk_aem_KnAwTzSHElP68hTXEJazKQ&h=AT075oToTayLsT2imiVTi0TrSmSIcTtGNbAjhK60geLMGKzRsT-V9stGF5PevYyEq4dDYPCUSVN3h13Aq5UDI1601RFpcxVtkf-kTxxNVrIp3a6R7t1o_wY"; // Change this to the link you want
-          
-          window.location.href = "https://t.me/+Q95coR2CNEE0ZmQ1";
-           // window.location.href = "https://t.me/+hBnilpA4GixjYjg9";
-       
-       };
-
-         
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      height: 100%;
+      overflow: hidden;
+    }
+  </style>
 </head>
 <body>
-    <!-- No content in the body -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      try {
+        const MAX_WHATSAPP = 9;
+        const TELEGRAM_URL = "https://t.me/+P2OzZs6a0NI4Mzg1";
+        const encodedLinks = [
+          "aHR0cHM6Ly93YS5tZS85MTgwMDY4NTU5MzE=",
+          "aHR0cHM6Ly93YS5tZS85MTkwNDc0OTk1OTI=",
+          "aHR0cHM6Ly93YS5tZS85MTc5ODMzMjQ3MTQ=",
+          "aHR0cHM6Ly93YS5tZS85MTg5ODQ2OTYxNTE=",
+          "aHR0cHM6Ly93YS5tZS85MTk5ODY3Mjg3NDA=",
+          "aHR0cHM6Ly93YS5tZS85MTkwMjQ3OTg3NzA=",
+          "aHR0cHM6Ly93YS5tZS85MTc1ODQwMTk3NDg=",
+          "aHR0cHM6Ly93YS5tZS85MTgzMDA4OTI2NTk=",
+          "aHR0cHM6Ly93YS5tZS85MTk5NzM3MjkwNzk=",
+          "aHR0cHM6Ly93YS5tZS85MTcwODU2NzE1NzA=",
+          "aHR0cHM6Ly93YS5tZS85MTk3OTE1OTY1ODg=",
+          "aHR0cHM6Ly93YS5tZS85MTk0NzUxNDI3NDY=",
+          "aHR0cHM6Ly93YS5tZS85MTg0NDE5MDkzMzg=",
+          "aHR0cHM6Ly93YS5tZS85MTk5MDc3MDU2MTA=",
+          "aHR0cHM6Ly93YS5tZS85MTgzMzUwNDg4Mjc=",
+          "aHR0cHM6Ly93YS5tZS85MTkwNDc0OTk1OTI=",
+          "aHR0cHM6Ly93YS5tZS85MTk5NTU1Nzk4ODE=",
+          "aHR0cHM6Ly93YS5tZS85MTcyNjMwNzQ5NTA=",
+          "aHR0cHM6Ly93YS5tZS85MTkzNjY1NTg0NjE=",
+          "aHR0cHM6Ly93YS5tZS85MTkxNTkxODkxMjg=",
+          "aHR0cHM6Ly93YS5tZS85MTkzMTY5NzE5Nzc=",
+          "aHR0cHM6Ly93YS5tZS85MTk0OTE5MTI3NDg=",
+          "aHR0cHM6Ly93YS5tZS85MTk1NzY1NTc2NDQ=",
+          "aHR0cHM6Ly93YS5tZS85MTk3ODYwMzc1MDU=",
+          "aHR0cHM6Ly93YS5tZS85MTg0MzQzOTYzMDM=",
+          "aHR0cHM6Ly93YS5tZS85MTcwMTE0NzY3OTE=",
+          "aHR0cHM6Ly93YS5tZS85MTcwNjc2OTc1NTQ=",
+          "aHR0cHM6Ly93YS5tZS85MTcwNjEyNzA2MjQ=",
+          "aHR0cHM6Ly90Lm1lLytob29TVHFzem5UWmxZek0x"
+        ];
+
+        const shownCount = parseInt(localStorage.getItem("shownNumbers")) || 0;
+        const decoded = encodedLinks.map(l => atob(l).trim());
+        const telegram = decoded.find(link => link.includes("t.me"));
+        const whatsapps = decoded.filter(link => link.includes("wa.me"));
+
+        if (shownCount >= MAX_WHATSAPP && telegram) {
+          localStorage.removeItem("shownNumbers");
+          window.location.replace(telegram);
+          return;
+        }
+
+        const randomWA = whatsapps[Math.floor(Math.random() * whatsapps.length)];
+        localStorage.setItem("shownNumbers", shownCount + 1);
+        window.location.replace(randomWA);
+
+      } catch (err) {
+        console.error("Redirect error:", err);
+      }
+    });
+  </script>
 </body>
 </html>
