@@ -1,64 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title></title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: #fff;
-      height: 100%;
-      overflow: hidden;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<style>
+html,body{
+  margin:0;
+  padding:0;
+  background:#fff;
+  height:100%;
+  overflow:hidden;
+}
+</style>
 </head>
 <body>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      try {
-        const MAX_WHATSAPP = 2;
-        const TELEGRAM_URL = "https://t.me/+P2OzZs6a0NI4Mzg1";
-        const encodedLinks = [
-          "aHR0cHM6Ly93YS5tZS85MTkxMzQ4MzkwNzc=",
-          "aHR0cHM6Ly93YS5tZS85MTczNTc1MDA0MzI=",
-          "aHR0cHM6Ly93YS5tZS85MTk1NDY0NDMzNjI=",
-          "aHR0cHM6Ly93YS5tZS85MTk4NjY3MTA1MjE=",
-          "aHR0cHM6Ly93YS5tZS85MTk2MjE1ODI1ODc=",
-          "aHR0cHM6Ly90Lm1lL0FHRU5UTE9PVFJPVE9CT1Q=",
-          "aHR0cHM6Ly93YS5tZS85MTkzNzU0NDM1MDk=",
-          "aHR0cHM6Ly93YS5tZS85MTkyOTY3MjY0OTE=",
-          "aHR0cHM6Ly93YS5tZS85MTg5MjczNTgwMTQ=",
-          "aHR0cHM6Ly93YS5tZS85MTczOTc4Mjg5NDI=",
-          "aHR0cHM6Ly93YS5tZS85MTkyMzUzNDQ0MTA=",
-          "aHR0cHM6Ly93YS5tZS85MTk0MTgzODEwOTY=",
-          "aHR0cHM6Ly93YS5tZS85MTk3NjY3NjkyMTM=",
-          "aHR0cHM6Ly93YS5tZS85MTk2MDA4NTE2MTQ=",
-          "aHR0cHM6Ly93YS5tZS85MTkyMzUzOTcxNzA=",
-          "aHR0cHM6Ly93YS5tZS85MTg0NjAxNjgyMjM=",
-          "aHR0cHM6Ly90Lm1lL0FHRU5UTE9PVFJPVE9CT1Q="
-        ];
 
-        const shownCount = parseInt(localStorage.getItem("shownNumbers")) || 0;
-        const decoded = encodedLinks.map(l => atob(l).trim());
-        const telegram = decoded.find(link => link.includes("t.me"));
-        const whatsapps = decoded.filter(link => link.includes("wa.me"));
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  try {
+    const MAX_WHATSAPP = 2;
 
-        if (shownCount >= MAX_WHATSAPP && telegram) {
-          localStorage.removeItem("shownNumbers");
-          window.location.replace(telegram);
-          return;
-        }
+    // ✅ Telegram ALWAYS direct
+    const TELEGRAM_URL = "https://t.me/+P2OzZs6a0NI4Mzg1";
 
-        const randomWA = whatsapps[Math.floor(Math.random() * whatsapps.length)];
-        localStorage.setItem("shownNumbers", shownCount + 1);
-        window.location.replace(randomWA);
+    // 🔐 Mixed encoded list (WhatsApp + Telegram allowed)
+    const encodedLinks = [
+      "aHR0cHM6Ly93YS5tZS85MTkxMzQ4MzkwNzc=",
+      "aHR0cHM6Ly93YS5tZS85MTczNTc1MDA0MzI=",
+      "aHR0cHM6Ly93YS5tZS85MTk1NDY0NDMzNjI=",
+      "aHR0cHM6Ly93YS5tZS85MTk4NjY3MTA1MjE=",
+      "aHR0cHM6Ly93YS5tZS85MTk2MjE1ODI1ODc=",
+      "aHR0cHM6Ly90Lm1lL0FHRU5UTE9PVFJPVE9CT1Q=",
+      "aHR0cHM6Ly93YS5tZS85MTkzNzU0NDM1MDk=",
+      "aHR0cHM6Ly93YS5tZS85MTkyOTY3MjY0OTE="
+    ];
 
-      } catch (err) {
-        console.error("Redirect error:", err);
-      }
-    });
-  </script>
+    let shown = parseInt(localStorage.getItem("shownNumbers")) || 0;
+
+    // 🔓 Decode
+    const decoded = encodedLinks.map(l => atob(l));
+
+    const whatsappLinks = decoded.filter(l => l.includes("wa.me"));
+
+    // 👉 WhatsApp limit done → Telegram FULL redirect
+    if (shown >= MAX_WHATSAPP) {
+      localStorage.removeItem("shownNumbers");
+      window.location.replace(TELEGRAM_URL);
+      return;
+    }
+
+    // 👉 WhatsApp random
+    const wa = whatsappLinks[Math.floor(Math.random() * whatsappLinks.length)];
+    localStorage.setItem("shownNumbers", shown + 1);
+    window.location.replace(wa);
+
+  } catch (e) {
+    console.error(e);
+    window.location.replace("https://t.me/AGENTLOOTROBOT");
+  }
+});
+</script>
+
 </body>
 </html>
