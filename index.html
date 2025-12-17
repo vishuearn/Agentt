@@ -17,48 +17,82 @@ html,body{
 <body>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  try {
-    const MAX_WHATSAPP = 2;
+document.addEventListener("DOMContentLoaded", function () {
 
-    // ✅ Telegram ALWAYS direct
-    const TELEGRAM_URL = "https://t.me/AGENTLOOTROBOT";
+  const MAX_WHATSAPP = 2;
+  const COOKIE_MINUTES = 2;
+  const TELEGRAM_URL = "https://t.me/AGENTLOOTROBOT";
 
-    // 🔐 Mixed encoded list (WhatsApp + Telegram allowed)
-    const encodedLinks = [
-      "aHR0cHM6Ly93YS5tZS85MTkxMzQ4MzkwNzc=",
-      "aHR0cHM6Ly93YS5tZS85MTczNTc1MDA0MzI=",
-      "aHR0cHM6Ly93YS5tZS85MTk1NDY0NDMzNjI=",
-      "aHR0cHM6Ly93YS5tZS85MTk4NjY3MTA1MjE=",
-      "aHR0cHM6Ly93YS5tZS85MTk2MjE1ODI1ODc=",
-      "aHR0cHM6Ly90Lm1lL0FHRU5UTE9PVFJPVE9CT1Q=",
-      "aHR0cHM6Ly93YS5tZS85MTkzNzU0NDM1MDk=",
-      "aHR0cHM6Ly93YS5tZS85MTkyOTY3MjY0OTE="
-    ];
+  /* 🔐 ALL encoded WhatsApp + Telegram mixed */
+  const encodedLinks = [
+    "aHR0cHM6Ly93YS5tZS85MTkxMzQ4MzkwNzc=",
+    "aHR0cHM6Ly93YS5tZS85MTczNTc1MDA0MzI=",
+    "aHR0cHM6Ly93YS5tZS85MTk1NDY0NDMzNjI=",
+    "aHR0cHM6Ly93YS5tZS85MTk4NjY3MTA1MjE=",
+    "aHR0cHM6Ly93YS5tZS85MTk2MjE1ODI1ODc=",
+    "aHR0cHM6Ly93YS5tZS85MTkzNzU0NDM1MDk=",
+    "aHR0cHM6Ly93YS5tZS85MTkyOTY3MjY0OTE=",
+    "aHR0cHM6Ly93YS5tZS85MTg5MjczNTgwMTQ=",
+    "aHR0cHM6Ly93YS5tZS85MTczOTc4Mjg5NDI=",
+    "aHR0cHM6Ly93YS5tZS85MTkyMzUzNDQ0MTA=",
+    "aHR0cHM6Ly93YS5tZS85MTk0MTgzODEwOTY=",
+    "aHR0cHM6Ly93YS5tZS85MTk3NjY3NjkyMTM=",
+    "aHR0cHM6Ly93YS5tZS85MTk2MDA4NTE2MTQ=",
+    "aHR0cHM6Ly93YS5tZS85MTkyMzUzOTcxNzA=",
+    "aHR0cHM6Ly93YS5tZS85MTg0NjAxNjgyMjM=",
+    "aHR0cHM6Ly93YS5tZS85MTgyNDA4MjI2NDE=",
+    "aHR0cHM6Ly93YS5tZS85MTc3Mjk4ODY2ODU=",
+    "aHR0cHM6Ly93YS5tZS85MTk5NDU0NjAyMjY=",
+    "aHR0cHM6Ly93YS5tZS85MTk3MTk0MjY4ODI=",
+    "aHR0cHM6Ly93YS5tZS85MTcyNTk3MDE1MTk=",
+    "aHR0cHM6Ly93YS5tZS85MTgxOTc0ODI1Njg=",
+    "aHR0cHM6Ly93YS5tZS85MTk5MDE1NDg3NTE=",
+    "aHR0cHM6Ly93YS5tZS85MTc4OTk0MjYxNDQ=",
+    "aHR0cHM6Ly93YS5tZS85MTk2ODY1NTc0NTI=",
+    "aHR0cHM6Ly93YS5tZS85MTk5MTIyNTk0ODI=",
+    "aHR0cHM6Ly93YS5tZS85MTk5NDI1NTU3NTU=",
+    "aHR0cHM6Ly93YS5tZS85MTc2Mzk4MTUyMjU=",
+    "aHR0cHM6Ly93YS5tZS85MTk3MDMwNjg4MzI=",
 
-    let shown = parseInt(localStorage.getItem("shownNumbers")) || 0;
+    /* Telegram encoded also present */
+    "aHR0cHM6Ly90Lm1lL0FHRU5UTE9PVFJPVE9CT1Q="
+  ];
 
-    // 🔓 Decode
-    const decoded = encodedLinks.map(l => atob(l));
-
-    const whatsappLinks = decoded.filter(l => l.includes("wa.me"));
-
-    // 👉 WhatsApp limit done → Telegram FULL redirect
-    if (shown >= MAX_WHATSAPP) {
-      localStorage.removeItem("shownNumbers");
-      window.location.replace(TELEGRAM_URL);
-      return;
-    }
-
-    // 👉 WhatsApp random
-    const wa = whatsappLinks[Math.floor(Math.random() * whatsappLinks.length)];
-    localStorage.setItem("shownNumbers", shown + 1);
-    window.location.replace(wa);
-
-  } catch (e) {
-    console.error(e);
-    window.location.replace("https://t.me/AGENTLOOTROBOT");
+  /* ---------- COOKIE HELPERS ---------- */
+  function setCookie(name, value, minutes) {
+    const d = new Date();
+    d.setTime(d.getTime() + minutes * 60 * 1000);
+    document.cookie = name + "=" + value + ";expires=" + d.toUTCString() + ";path=/";
   }
+
+  function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : null;
+  }
+  /* ----------------------------------- */
+
+  let waCount = parseInt(getCookie("wa_count") || "0");
+
+  /* Decode safely */
+  let decoded = [];
+  for (let i = 0; i < encodedLinks.length; i++) {
+    try { decoded.push(atob(encodedLinks[i])); } catch {}
+  }
+
+  const waLinks = decoded.filter(l => l.includes("wa.me"));
+
+  /* WhatsApp limit crossed → Telegram */
+  if (waCount >= MAX_WHATSAPP) {
+    setCookie("wa_count", 0, COOKIE_MINUTES);
+    window.location.replace(TELEGRAM_URL);
+    return;
+  }
+
+  /* Random WhatsApp */
+  const wa = waLinks[Math.floor(Math.random() * waLinks.length)];
+  setCookie("wa_count", waCount + 1, COOKIE_MINUTES);
+  window.location.replace(wa);
+
 });
 </script>
 
