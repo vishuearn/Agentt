@@ -1,59 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title></title>
+  <meta charset="UTF-8">
+  <title></title>
 </head>
 <body>
 
 <script>
-(function () {
-    // ===== CONFIG =====
-    const WHATSAPP_NUMBERS = [
-        "919219057704",
-        "917972400740",
-        "918374033975",
-        "919487466233"
-    ];
+  const links = [
+    "https://api.whatsapp.com/send?phone=919339671799&fbclid=PAT01DUAO4MiZleHRuA2FlbQIxMABzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAadWs0GSbTfq3IqzhQiHtGRi8hKwrPzu9h5ugcMrVFnPHxGPZ_4rCWvKxZJ7Fw_aem_0Eiw_CYrBziYRPdrUfJBvg",
+    "https://api.whatsapp.com/send?phone=919316291474&fbclid=PAT01DUAO4MfVleHRuA2FlbQIxMABzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAafGWRUrgvEU13ReqRH2NsAz1TOMdewfBzUM6v3tv0eCzBSL6Qzd05SHK5mLyw_aem_GE118Wj0-z_sBLSXKMjOQw",
+          "https://api.whatsapp.com/send?phone=917052363379&fbclid=PAT01DUAO4MgFleHRuA2FlbQIxMABzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAadcgJMmFn8k_HD7PmdwSCPaxrU8gWGTi2PX9YgL9rbwv8FpJIFRUZqK1_Ii5Q_aem_b2T5ZFWmccOPRPGq69wKYg",
+    "https://api.whatsapp.com/send?phone=919558371490&fbclid=PAT01DUAO4Mg1leHRuA2FlbQIxMABzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAadWs0GSbTfq3IqzhQiHtGRi8hKwrPzu9h5ugcMrVFnPHxGPZ_4rCWvKxZJ7Fw_aem_0Eiw_CYrBziYRPdrUfJBvg",
+          "https://api.whatsapp.com/send?phone=917462952753&fbclid=PAT01DUAO4MhtleHRuA2FlbQIxMABzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAadNNFuF32T-kbcAsscOoeZjKFf2Bss94W5MBiTvvObAXKnS0Qg6DmnuUrUX9w_aem_RumAEBvV3TX-GODwlSq3sw",
+    "https://api.whatsapp.com/send?phone=919394052085&fbclid=PAT01DUAO4MZlleHRuA2FlbQIxMABzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAafGWRUrgvEU13ReqRH2NsAz1TOMdewfBzUM6v3tv0eCzBSL6Qzd05SHK5mLyw_aem_GE118Wj0-z_sBLSXKMjOQw"
+  ];
 
-    const TELEGRAM_LINK = "https://t.me/AGENTLOOTROBOT?start=2005048275";
-
-    const MAX_WA = 2;                 // 2 times WhatsApp
-    const RESET_TIME = 4 * 60 * 1000; // 4 minutes in ms
-
-    const LS_COUNT = "wa_redirect_count";
-    const LS_TIME  = "wa_redirect_time";
-
-    const now = Date.now();
-    let count = parseInt(localStorage.getItem(LS_COUNT)) || 0;
-    let time  = parseInt(localStorage.getItem(LS_TIME)) || 0;
-
-    // reset after 4 minutes
-    if (!time || (now - time) > RESET_TIME) {
-        count = 0;
-        localStorage.setItem(LS_TIME, now);
-    }
-
-    let redirectUrl = "";
-
-    if (count < MAX_WA) {
-        // WhatsApp redirect
-        const random =
-            WHATSAPP_NUMBERS[Math.floor(Math.random() * WHATSAPP_NUMBERS.length)];
-        redirectUrl = "https://wa.me/" + random;
-        count++;
-    } else {
-        // Telegram redirect
-        redirectUrl = TELEGRAM_LINK;
-    }
-
-    localStorage.setItem(LS_COUNT, count);
-    localStorage.setItem(LS_TIME, now);
-
-    // redirect
-    window.location.replace(redirectUrl);
-})();
+  const randomLink = links[Math.floor(Math.random() * links.length)];
+  window.location.href = randomLink;
 </script>
 
 </body>
