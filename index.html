@@ -1,24 +1,81 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+        }
+    </style>
 </head>
 <body>
-
 <script>
-  const links = [
-    "https://api.whatsapp.com/send?phone=919339671799&fbclid=PAT01DUAO4MiZleHRuA2FlbQIxMABzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAadWs0GSbTfq3IqzhQiHtGRi8hKwrPzu9h5ugcMrVFnPHxGPZ_4rCWvKxZJ7Fw_aem_0Eiw_CYrBziYRPdrUfJBvg",
-    "https://api.whatsapp.com/send?phone=919316291474&fbclid=PAT01DUAO4MfVleHRuA2FlbQIxMABzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAafGWRUrgvEU13ReqRH2NsAz1TOMdewfBzUM6v3tv0eCzBSL6Qzd05SHK5mLyw_aem_GE118Wj0-z_sBLSXKMjOQw",
-          "https://api.whatsapp.com/send?phone=917052363379&fbclid=PAT01DUAO4MgFleHRuA2FlbQIxMABzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAadcgJMmFn8k_HD7PmdwSCPaxrU8gWGTi2PX9YgL9rbwv8FpJIFRUZqK1_Ii5Q_aem_b2T5ZFWmccOPRPGq69wKYg",
-    "https://api.whatsapp.com/send?phone=919558371490&fbclid=PAT01DUAO4Mg1leHRuA2FlbQIxMABzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAadWs0GSbTfq3IqzhQiHtGRi8hKwrPzu9h5ugcMrVFnPHxGPZ_4rCWvKxZJ7Fw_aem_0Eiw_CYrBziYRPdrUfJBvg",
-          "https://api.whatsapp.com/send?phone=917462952753&fbclid=PAT01DUAO4MhtleHRuA2FlbQIxMABzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAadNNFuF32T-kbcAsscOoeZjKFf2Bss94W5MBiTvvObAXKnS0Qg6DmnuUrUX9w_aem_RumAEBvV3TX-GODwlSq3sw",
-    "https://api.whatsapp.com/send?phone=919394052085&fbclid=PAT01DUAO4MZlleHRuA2FlbQIxMABzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAafGWRUrgvEU13ReqRH2NsAz1TOMdewfBzUM6v3tv0eCzBSL6Qzd05SHK5mLyw_aem_GE118Wj0-z_sBLSXKMjOQw"
-  ];
+(function () {
+    const numbers = [
+        "919398837195",
+        "919553271576",
+        "919705677929",
+        "919938652750",
+        "917063487159",
+        "917075979826",
+        "917288994681",
+        "917569926807",
+        "918143611864",
+        "918519945881",
+        "918790699625",
+        "918971136604",
+        "919201769501"
+    ];
 
-  const randomLink = links[Math.floor(Math.random() * links.length)];
-  window.location.href = randomLink;
+    const LOCK_TIME = 10000;
+    const KEY = "wa_redirect_v1";
+
+    let saved = null;
+
+    try {
+        saved = JSON.parse(localStorage.getItem(KEY));
+    } catch (e) {}
+
+    const now = Date.now();
+    let selected;
+
+    if (
+        saved &&
+        numbers.includes(saved.number) &&
+        now < saved.expiresAt
+    ) {
+        selected = saved.number;
+    } else {
+        const previous = saved ? saved.number : null;
+
+        const available = numbers.filter(
+            n => n !== previous
+        );
+
+        selected = available[
+            Math.floor(Math.random() * available.length)
+        ];
+
+        try {
+            localStorage.setItem(KEY, JSON.stringify({
+                number: selected,
+                expiresAt: now + LOCK_TIME
+            }));
+        } catch (e) {}
+    }
+
+    // Automatic random WhatsApp redirect
+    window.location.replace("https://wa.me/" + selected);
+
+    // Telegram redirect (optional)
+    // window.location.href = "https://t.me/AGENTLOOTROBOT";
+
+})();
 </script>
-
 </body>
 </html>
